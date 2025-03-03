@@ -1,0 +1,26 @@
+<div class="flex flex-wrap mb-10 ">
+    <div class="w-full text-blue-50 font-black font-serif">
+        <owl-carousel-o [options]="customOptions" >
+            <ng-template carouselSlide >
+                <div class="relative">
+                    <img src="images/mainsilder.jpg" class="rounded-xl h-[500px]" alt="slider-image-1">
+                    <div class="absolute text-left flex flex-col gap-y-3 top-52 left-10 animate__animated animate__backInDown  animate__slow animate__delay-2s">
+                        <h2 class="text-4xl">FLASH SALE : Up to 50% Off</h2>
+                        <p>Don’t Miss Out </p>
+                        <p>Score Amazing Discounts Before They're Gone</p>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="relative">
+                    <img src="images/silder2.jpg" class=" rounded-xl h-[500px]" alt="slider-image-1">
+                    <div class="absolute text-center flex flex-col gap-y-3 top-52 left-20 right-20 animate__animated animate__backInDown  animate__slow animate__delay-5s">
+                        <h2 class="text-5xl">WIGHT FRIDAY</h2>
+                        <p class="text-4xl">Sale on all items</p>
+                    </div>
+                </div>
+               
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+</div>

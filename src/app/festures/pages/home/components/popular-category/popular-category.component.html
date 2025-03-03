@@ -1,0 +1,12 @@
+<div class="mb-28">
+  <h2 class="text-header">Popular Categories</h2>
+  <owl-carousel-o [options]="customOptions">
+    @for (category of categories(); track $index) {
+      <ng-template carouselSlide [id]="category._id">
+        <img [src]="category.image" class="w-[200px] h-[200px] border overflow-hidden hover:scale-110 transition-all duration-300 rounded-full object-cover mx-auto"
+             [alt]="category.name" [title]="category.name">
+             <p class="text-black mt-7 text-center">{{category.name}}</p>
+      </ng-template>
+    }
+  </owl-carousel-o>
+</div>

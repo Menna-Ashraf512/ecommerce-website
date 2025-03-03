@@ -1,0 +1,8 @@
+<h1 class="text-header">RECOMMEND FOR YOU</h1>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-6 mb-20 ">
+  @for (product of products().slice(0,10); track $index) {
+  <app-product-item [product]="product"></app-product-item>
+  }
+</div>
+<button class="btn-main px-3 py-1 block m-auto" routerLink="/products">Show More <i class="fa fa-arrow-alt-circle-right"></i></button>
+

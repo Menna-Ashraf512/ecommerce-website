@@ -1,0 +1,11 @@
+<div class="mb-28">
+    <h2 class="text-header">Top Brands</h2>
+    <owl-carousel-o [options]="customOptions">
+      @for (item of brand.data; track $index) {
+        <ng-template carouselSlide [id]="item._id">
+          <img [src]="item.image" class="border overflow-hidden hover:scale-110 transition-all duration-300  object-contain mx-auto"
+               [alt]="item.name" [title]="item.name">
+        </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
