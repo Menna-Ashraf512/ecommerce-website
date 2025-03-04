@@ -41,7 +41,10 @@ export class AuthService {
   getUser(id:string): Observable<any> {
     return this._httpClient.get(`${environment.baseUrl}/api/v1/users/${id}`);
   }
-  
+  updateUser( data: object) {
+    return this._httpClient.put(`${environment.baseUrl}/api/v1/users/updateMe/`,data);
+  }
+
   logOut():void{
     localStorage.removeItem('userToken');
     localStorage.removeItem('imageKey')

@@ -1,6 +1,6 @@
 <section class=" w-[75%] mx-auto ">
     <div class="m-sec-style">
-        <h1 class="text-center text-main text-4xl">Shop Cart</h1>
+        <h1 class="text-center text-main text-4xl">Wish List</h1>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 @if(wishList.data.length===0){
     <div class="flex justify-center flex-col gap-y-3 items-center my-3">
@@ -42,8 +42,23 @@
                     {{prod.price| currency:"EGP"}}
                 </td>
                 <td class="px-6 py-4">
-                    <a (click)="removeItem(prod._id)"
-                        class="font-medium text-red-600 dark:text-red-500 group cursor-pointer"><i class="fa fa-trash-can-arrow-up me-2 text-lg group-hover:scale-110"></i>Remove</a>
+                    <div class="flex flex-col gap-y-6">
+                        <a (click)="removeItem(prod._id)"
+                        class="font-medium text-red-600 dark:text-red-500 group cursor-pointer">
+                        @if(isLoadingRemove){
+                            <i class="fa fa-spin me-2 text-lg fa-spinner"></i>
+                        }@else {
+                            <i class="fa fa-trash-can-arrow-up me-2 text-lg group-hover:scale-110"></i>
+                        }Remove</a>
+                        <a (click)="addCartItem(prod._id)"
+                        class="font-medium text-green-600 group cursor-pointer">
+                        @if(isLoadingCart){
+                            <i class="fa fa-spin me-2 text-lg fa-spinner"></i>
+                        }@else {
+                            <i class="fa fa-cart-plus me-2 text-lg group-hover:scale-110"></i> 
+                        }Add to cart</a>
+                    </div>
+                                   
                 </td>
             </tr>
 

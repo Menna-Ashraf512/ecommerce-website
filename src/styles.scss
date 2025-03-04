@@ -33,3 +33,33 @@ body {
 .text-header{
   @apply text-4xl mb-10 font-bold
 }
+
+
+
+$scrollbar-width: 10px;
+$thumb-color: #212529;
+$track-color: #f1f1f1;
+$hover-thumb-color: #212529;
+
+* {
+  ::-webkit-scrollbar {
+    width: $scrollbar-width; 
+    height: $scrollbar-width; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $thumb-color; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: $track-color; 
+    border-radius: 5px; 
+  }
+
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: $hover-thumb-color; 
+  }
+}

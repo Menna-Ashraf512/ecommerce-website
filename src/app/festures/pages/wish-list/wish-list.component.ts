@@ -3,6 +3,7 @@ import { WishListService } from '../../../core/services/wishList/wish-list.servi
 import { WishList } from '../../../shared/interfaces/wish-list';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CartService } from '../../../core/services/cart/cart.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -12,7 +13,9 @@ import { RouterLink } from '@angular/router';
 })
 export class WishListComponent {
     private readonly wishListService = inject(WishListService)
-
+    private readonly _cartService=inject(CartService)
+    isLoadingCart=false;
+    isLoadingRemove=false;
     wishList:WishList ={} as WishList
       
     ngOnInit(): void {
@@ -34,15 +37,35 @@ export class WishListComponent {
 
 
     removeItem(id:string):void{
+      this.isLoadingRemove=true
       this.wishListService.removeSpecificFromWishList(id).subscribe({
         next:(res)=>{
           if(res.status === "success"){
             this.getWishList();
           }
-        }
+        },
+        error:(err)=>{
+          console.log(err)
+          this.isLoadingRemove=false;
+        },
+        complete: () => (this.isLoadingRemove = false),
       })
+    }
 
 
+    addCartItem(id: string): void {
+      this.isLoadingCart = true;
+      this._cartService.addProductToCart(id).subscribe({
+        next: (res) => {
+          this._cartService.cartNumber.set(res.numOfCartItems);
+        },
+       error:(err)=>{
+        console.log(err)
+       this.isLoadingCart = false
+       } ,
+  
+        complete: () => (this.isLoadingCart = false),
+      });
     }
 }
 

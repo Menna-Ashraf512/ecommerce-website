@@ -1,9 +1,8 @@
 import { Component, computed, inject, input, Input, InputSignal, OnInit, Signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { CartService } from '../../services/cart/cart.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { WishListService } from '../../services/wishList/wish-list.service';
 import { CartSideComponent } from "../../../festures/pages/cart/SideBar/cart-side/cart-side.component";
 import { InputImagesService } from '../../services/images/input-images.service';

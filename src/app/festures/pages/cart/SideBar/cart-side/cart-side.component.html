@@ -12,42 +12,44 @@
         </svg>
         <span class="sr-only">Close menu</span>
     </button>
-    @if (cartDetails.products.length === 0) {
-
-    <div class="flex justify-center flex-col gap-y-3 items-center my-3">
-        <img src="images/addCart.jpg" class="w-full h-[400px] object-cover" alt="emptyCart">
-        <h4 class="font-semibold text-3xl">No Product</h4>
-        <p>Go find the Product You Like</p>
-    </div>
-    }@else {
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="p-4">
-            <h3>Total Cart Price : {{cartDetails.totalCartPrice| currency:"EGP"}} </h3>
-            <button (click)="clearUserCart()" class="btn-main px-3 py-2 mt-3 ">Clear All</button>
+    @if (cartDetails) {
+        @if (cartDetails.products.length === 0) {
+    
+        <div class="flex justify-center flex-col gap-y-3 items-center my-3">
+            <img src="images/addCart.jpg" class="w-full h-[400px] object-cover" alt="emptyCart">
+            <h4 class="font-semibold text-3xl">No Product</h4>
+            <p>Go find the Product You Like</p>
         </div>
-        @for (prod of cartDetails.products; track prod.product._id) {
-
-        <div class="flex flex-col">
+        }@else {
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div class="p-4">
-                <img [src]="prod.product.imageCover" class="w-16 md:w-32 max-w-full max-h-full"
-                    alt="{{prod.product.title}}">
+                <h3>Total Cart Price : {{cartDetails.totalCartPrice| currency:"EGP"}} </h3>
+                <button (click)="clearUserCart()" class="btn-main px-3 py-2 mt-3 ">Clear All</button>
             </div>
-            <div class="px-6 py-4 font-semibold text-gray-900">
-                {{prod.product.title}}
+            @for (prod of cartDetails.products; track prod.product._id) {
+    
+            <div class="flex flex-col">
+                <div class="p-4">
+                    <img [src]="prod.product.imageCover" class="w-16 md:w-32 max-w-full max-h-full"
+                        alt="{{prod.product.title}}">
+                </div>
+                <div class="px-6 py-4 font-semibold text-gray-900">
+                    {{prod.product.title}}
+                </div>
+    
+                <div class="px-6 py-4 font-semibold text-gray-900">
+                    {{prod.price| currency:"EGP"}}
+                </div>
+                <div class="px-6 py-4">
+                    <a (click)="removeItem(prod.product._id)"
+                        class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer">Remove</a>
+                </div>
             </div>
-
-            <div class="px-6 py-4 font-semibold text-gray-900">
-                {{prod.price| currency:"EGP"}}
-            </div>
-            <div class="px-6 py-4">
-                <a (click)="removeItem(prod.product._id)"
-                    class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer">Remove</a>
-            </div>
+    
+            }
         </div>
-
-        }
-    </div>
-}
+    }
+    }
 
 <div class="flex gap-3 mt-7">
     <button type="button" routerLink="/cart"
