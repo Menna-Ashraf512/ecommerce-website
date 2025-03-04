@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services/auth/auth.service';
-import { jwtDecode } from 'jwt-decode'; // تأكد من تثبيت المكتبة: npm install jwt-decode
+import { jwtDecode } from 'jwt-decode'; 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router'; // استخدام Router من Angular وليس Express
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-profile',
-  standalone: true, // إذا كنت تستخدم Standalone Components
+  standalone: true, 
   imports: [ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './core/layout/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './core/layout/blank-layout/blank-layout.component';
 import { authGuard } from './core/guards/auth/auth.guard';
-// import { logedGuard } from './core/guards/loged/loged.guard';
+import { logedGuard } from './core/guards/loged/loged.guard';
 
 export const routes: Routes = [
     {path:'',component:BlankLayoutComponent ,canActivate:[authGuard],children:[
@@ -18,7 +18,7 @@ export const routes: Routes = [
         {path:"profile",loadComponent: ()=> import('./festures/pages/profile/profile.component').then(c => c.ProfileComponent)},    
         {path:"cartSide",loadComponent: ()=> import('./festures/pages/cart/SideBar/cart-side/cart-side.component').then(c => c.CartSideComponent)},    
     ]},
-    {path:'',component:AuthLayoutComponent,canActivate:[authGuard],children:[
+    {path:'',component:AuthLayoutComponent,canActivate:[logedGuard],children:[
         {path:'', redirectTo:'login',pathMatch:'full'},
         {path:"register",loadComponent: ()=> import('./core/pages/register/register.component').then(c => c.RegisterComponent)},
         {path:"login",loadComponent: ()=> import('./core/pages/login/login.component').then(c => c.LoginComponent)},
