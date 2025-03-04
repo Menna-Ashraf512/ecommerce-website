@@ -5,7 +5,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CartService } from '../../services/cart/cart.service';
 import { WishListService } from '../../services/wishList/wish-list.service';
 import { CartSideComponent } from "../../../festures/pages/cart/SideBar/cart-side/cart-side.component";
-import { InputImagesService } from '../../services/images/input-images.service';
 import { IUser } from '../../../festures/interfaces/userData/iuser';
 
 @Component({
@@ -16,7 +15,6 @@ import { IUser } from '../../../festures/interfaces/userData/iuser';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private imageService: InputImagesService){}
   
   readonly _authService = inject(AuthService)
   private readonly _cartService = inject(CartService)
@@ -51,17 +49,9 @@ export class NavbarComponent implements OnInit {
     });
 
     // Load profile image if userId is available
-    if (this.userId) {
-      this.loadProfileImage();
-    }
   }
 
-  loadProfileImage(): void {
-    const image = this.imageService.getImage(this.userId);
-    if (image) {
-      this.profileImage = image;
-    }
-  }
+
 
 
 }

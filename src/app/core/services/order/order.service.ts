@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 
@@ -9,7 +9,6 @@ import { environment } from '../../environment/environment';
 export class OrderService {
   myToken = localStorage.getItem('userToken')!;
   endPoint='/api/v1/orders/'
-  // dataShipping:WritableSignal<Ishipping>= signal<Ishipping>({} as Ishipping)
   
   constructor(private readonly _httpClient: HttpClient) {}
 
