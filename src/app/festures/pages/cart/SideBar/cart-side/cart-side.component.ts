@@ -1,9 +1,9 @@
-import { Component, ElementRef, HostListener, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { CartComponent } from "../../cart.component";
+import { Component, effect, ElementRef, HostListener, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CartService } from '../../../../../core/services/cart/cart.service';
 import { Icart } from '../../../../../shared/interfaces/icart';
 import { CurrencyPipe } from '@angular/common';
+import{ Drawer} from 'flowbite'
 
 @Component({
   selector: 'app-cart-side',
@@ -13,11 +13,28 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class CartSideComponent implements OnInit {
   private readonly cartService = inject(CartService)
+  drawer!:Drawer
 
   cartDetails:Icart ={} as Icart
   
+  constructor() {
+   
+    effect(() => {
+      const numOfItems = this.cartService.cartNumber(); 
+      this.getCart(); 
+    });
+  }
 ngOnInit(): void {
-  this.getCart()
+  const $drawerElement = document.getElementById('drawer-disabled-backdrop');
+  this.drawer = new Drawer($drawerElement, {
+    backdrop: false,
+  });
+  this.getCart();
+  
+}
+
+closeDrawer(){
+  this.drawer.hide()
 }
 getCart():void{
   this.cartService.getLoggedUserCart().subscribe({
@@ -46,18 +63,7 @@ removeItem(id:string):void{
   })
 }
 
-updateItem(id:string,count:number):void{
-  this.cartService.updateCartProduct(id,count).subscribe({
-    next:(res)=>{
-      console.log(res);
-      this.cartDetails=res.data
 
-    },
-    error:(err)=>{
-      console.log(err);
-    }
-  })
-}
 
 clearUserCart():void{
   this.cartService.clearCart().subscribe({

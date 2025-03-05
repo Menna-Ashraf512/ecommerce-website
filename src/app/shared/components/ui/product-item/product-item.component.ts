@@ -5,7 +5,8 @@ import { CurrencyPipe } from '@angular/common';
 import { CartService } from '../../../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishListService } from '../../../../core/services/wishList/wish-list.service';
-
+import { Drawer } from 'flowbite';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-product-item',
   imports: [ CurrencyPipe],
@@ -13,8 +14,10 @@ import { WishListService } from '../../../../core/services/wishList/wish-list.se
   styleUrl: './product-item.component.scss',
 })
 export class ProductItemComponent {
-  @Input() product!: Product;
 
+  @Input() product!: Product;
+  drawer!: Drawer;
+private userDataSubscription!: Subscription;
   private readonly _cartService = inject(CartService);
   private readonly _wishListService = inject(WishListService);
   private readonly _toastrService = inject(ToastrService);
@@ -30,7 +33,13 @@ export class ProductItemComponent {
         this.wishListIds = res.data.map((item: any) => item._id);
       }
     });
+    const $drawerElement = document.getElementById('drawer-disabled-backdrop');
+    this.drawer = new Drawer($drawerElement, {
+      backdrop: false,
+      });
   }
+
+
 
   addCartItem(id: string): void {
     this.isLoadingCart = true;
@@ -38,13 +47,13 @@ export class ProductItemComponent {
       next: (res) => {
         this._toastrService.success(res.message, this.product.category.name);
         this._cartService.cartNumber.set(res.numOfCartItems);
+        this.drawer.show();
       },
      error:(err)=>{
-     this._toastrService.error(err.error.message, 'MegaCart');
-     this.isLoadingCart = false
-     } ,
-
-      complete: () => (this.isLoadingCart = false),
+        this._toastrService.error(err.error.message, 'MegaCart');
+        this.isLoadingCart = false
+     },
+     complete: () => (this.isLoadingCart = false),
     });
   }
 
@@ -79,5 +88,11 @@ export class ProductItemComponent {
 
   viewDetails(){
     this._router.navigate(['/details',this.product._id])    
+  }
+
+  ngOnDestroy(): void {
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
   }
 }

@@ -9,6 +9,7 @@ import { CategoriesService } from '../../../../../shared/services/categories/cat
 import { Category } from '../../../../../shared/interfaces/category';
 import { OwlOptions } from '../../../../../../../node_modules/ngx-owl-carousel-o/lib/models/owl-options.model';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-popular-category',
@@ -18,8 +19,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 })
 export class PopularCategoryComponent implements OnInit {
   _categoriesService = inject(CategoriesService);
-
-  // categories!:Category[]
+  private userDataSubscription!: Subscription;
   categories: WritableSignal<Category[]> = signal([]);
 
   ngOnInit(): void {
@@ -63,5 +63,12 @@ export class PopularCategoryComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
   }
 }

@@ -8,16 +8,11 @@
             <!-- list nav -->
             <ul class="flex md:gap-x-4">
                 @if(isLogin()){
-                    <li class="md:w-auto ">
-                <button type="button" routerLink="/cart" class="btn-main px-3 py-1"
-                    data-drawer-hide="drawer-disabled-backdrop" aria-controls="drawer-disabled-backdrop">view
-                    Cart</button>
-                    </li>
                 <li class="md:w-auto  ">
                     <!-- drawer init and toggle -->
                     <button
                         class="block py-2 px-3 relative text-gray rounded-sm md:bg-transparent md:text-gray md:p-0 dark:text-gray md:dark:text-gray"
-                        type="button" data-drawer-target="drawer-disabled-backdrop"
+                        type="button" (click)="openDrawer()" data-drawer-target="drawer-disabled-backdrop"
                         data-drawer-show="drawer-disabled-backdrop" data-drawer-backdrop="false"
                         aria-controls="drawer-disabled-backdrop"><i class="fa-solid fa-cart-shopping"></i>
                         <div
@@ -36,37 +31,37 @@
                 </li>
                 }
             </ul>
-            <ul class="flex gap-x-3">
+            <ul class="flex gap-x-3 relative">
                 @if(!isLogin()){
                 <li><a routerLink="/register" routerLinkActive="!text-main">{{'nav.register'| translate}} </a></li>
                 <li><a routerLink="/login" routerLinkActive="!text-main">{{'nav.login'| translate}} </a></li>
                 }
+                <li> <button #userMenuButton type="button" (click)="toggleDropdown()"
+                        class="mb-1 flex text-sm bg-gray-800 rounded-full md:me-0">
+                        <span class="sr-only">Open user menu</span>
+                        <img class="w-8 h-8 rounded-full" src="images/user.png" alt="user photo">
+                    </button></li>
+                    <div #userDropdown
+                        class="hidden w-[100px] absolute top-8 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3">
+                            <span class="block text-sm text-gray-900 dark:text-black">@if(userData){
+                                {{userData.name}}
+                                }</span>
+                        </div>
+                        <ul class="py-2" aria-labelledby="user-menu-button">
+                            <li>
+                                <a routerLink="/profile"
+                                    class="block px-4 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-black">Settings</a>
+                            </li>
+                            <li>
+                                <a (click)="_authService.logOut()"
+                                    class="block px-4 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-black cursor-pointer">Sign
+                                    out</a>
+                            </li>
+                        </ul>
+                    </div>
             </ul>
-            <button type="button" class="mb-1 flex text-sm bg-gray-800 rounded-full md:me-0" id="user-menu-button"
-                aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="images/user.png" alt="user photo">
-            </button>
             <!-- Dropdown menu -->
-            <div class="hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600"
-                id="user-dropdown">
-                <div class="px-4 py-3">
-                    <span class="block text-sm text-gray-900 dark:text-black">@if(userData){
-                        {{userData.name}}
-                        }</span>
-                </div>
-                <ul class="py-2" aria-labelledby="user-menu-button">
-                    <li>
-                        <a routerLink="/profile"
-                            class="block px-4 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-black">Settings</a>
-                    </li>
-                    <li>
-                        <a (click)="_authService.logOut()"
-                            class="block px-4 py-2 text-sm text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-black cursor-pointer">Sign
-                            out</a>
-                    </li>
-                </ul>
-            </div>
             <button data-collapse-toggle="user-menu" type="button"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-user" aria-expanded="false">

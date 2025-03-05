@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BrandService } from '../../services/brand/brand.service';
 import { data } from '../../interfaces/brands/ibrands';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-brands',
@@ -10,7 +11,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   styleUrl: './brands.component.scss'
 })
 export class BrandsComponent implements OnInit {
-
+  private userDataSubscription!: Subscription;
   private _brandService=inject(BrandService)
   brand:data={} as data
 
@@ -53,5 +54,13 @@ customOptions: OwlOptions = {
     },
     nav: false,
   };
+
+
+
+  ngOnDestroy(): void {
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
+  }
 
 }
