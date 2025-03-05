@@ -1,4 +1,4 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-lg fixed w-full z-10">
+<nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-lg fixed w-full pt-3 z-10">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between gap-20  mx-auto p-4" id="navbar-user">
         <a routerLink="/home" class="mb-1 flex items-center space-x-3 rtl:space-x-reverse">
             <img src="images/online-shop_18124730.gif" type="gif" class="h-8" alt="Flowbite Logo" />
@@ -8,17 +8,22 @@
             <!-- list nav -->
             <ul class="flex md:gap-x-4">
                 @if(isLogin()){
-                <li class="md:w-auto ">
+                    <li class="md:w-auto ">
+                <button type="button" routerLink="/cart" class="btn-main px-3 py-1"
+                    data-drawer-hide="drawer-disabled-backdrop" aria-controls="drawer-disabled-backdrop">view
+                    Cart</button>
+                    </li>
+                <li class="md:w-auto  ">
                     <!-- drawer init and toggle -->
-                        <button
-                            class="block py-2 px-3 relative text-gray rounded-sm md:bg-transparent md:text-gray md:p-0 dark:text-gray md:dark:text-gray"
-                            type="button" data-drawer-target="drawer-disabled-backdrop"
-                            data-drawer-show="drawer-disabled-backdrop" data-drawer-backdrop="false"
-                            aria-controls="drawer-disabled-backdrop"><i class="fa-solid fa-cart-shopping"></i>
-                            <div
-                                class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-black bg-main  rounded-full -top-2.5 -end-0 md:-top-4 md:-end-3">
-                                {{countCart()}}</div>
-                        </button>
+                    <button
+                        class="block py-2 px-3 relative text-gray rounded-sm md:bg-transparent md:text-gray md:p-0 dark:text-gray md:dark:text-gray"
+                        type="button" data-drawer-target="drawer-disabled-backdrop"
+                        data-drawer-show="drawer-disabled-backdrop" data-drawer-backdrop="false"
+                        aria-controls="drawer-disabled-backdrop"><i class="fa-solid fa-cart-shopping"></i>
+                        <div
+                            class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-black bg-main  rounded-full -top-2.5 -end-0 md:-top-4 md:-end-3">
+                            {{countCart()}}</div>
+                    </button>
                 </li>
                 <li class="md:w-auto ">
                     <button routerLink="/wishList" routerLinkActive="text-red-700"
@@ -48,7 +53,7 @@
                 <div class="px-4 py-3">
                     <span class="block text-sm text-gray-900 dark:text-black">@if(userData){
                         {{userData.name}}
-                    }</span>
+                        }</span>
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>

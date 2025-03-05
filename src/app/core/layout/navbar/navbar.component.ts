@@ -48,7 +48,6 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    // Load profile image if userId is available
   }
 
 
